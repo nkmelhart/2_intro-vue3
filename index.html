@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory</title>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-800">
+    <div id="app">
+        <h1 id="title" class="text-2xl text-gray-200 text-center">{{title}}</h1>
+        <h3 class="text-sm text-center text-blue-400">Total Inventory: {{total}}</h3>
+        <div class="flex flex-col max-w-lg mx-auto">
+            <input 
+                placeholder="New Item"
+                type="text" 
+                class="bg-gray-600 rounded p-2 w-10/12 mx-auto mt-4 text-white" 
+                v-model="newProduct"
+                @change="addProduct"
+            />
+            <ul>
+                <li v-for="product in products"
+                class="bg-gray-600 w-10/12 mx-auto mt-2 py-2 px-2 text-white shadow rounded flex">
+                    <div class="flex-1">
+                        <span v-if="product.qty == 0" class="text-xs font-bold text-red-500">Out of Stock!</span>
+                        <span v-else>{{product.qty}}</span> - {{product.name}}
+                    </div>
+                    <div class="flex-1">
+                        <button class="bg-yellow-500 ml-4 px-3 text-white rounded shadow hover:bg-yellow-800 transition transform ease-in-out hover:scale-110" 
+                        @click="product.qty++"
+                        >
+                        +
+                        </button>
+                        <button v-show="product.qty>0" class="bg-indigo-500 ml-4 px-3 text-white rounded shadow hover:bg-indigo-800 transition transform ease-in-out hover:scale-110" 
+                        @click="product.qty--"
+                        >
+                        -    
+                        </button>
+                    </div>
+                    <div>
+                        <button class="rounded bg-red-500 px-2 shadow transition transform ease-in-out hover:bg-red-800 hover:scale-110">
+                            Delete
+                        </button>
+                    </div>
+                </li>
+            
+            </ul>
+        </div>
+        <!--<p>{{counter}}</p>
+        <button class="py-2 px-4 bg-green-500 rounded text-white hover:bg-green-800" 
+        @click="rest">-</button>
+        <button class="py-2 px-4 bg-green-500 text-white rounded hover:bg-green-800 ml-4" 
+        @click="add">+</button>-->
+    </div>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="main.js"></script>
+</body>
+</html>
